@@ -45,7 +45,7 @@ def login():
 
 
 @app.route('/signup')
-def signout():
+def signup():
     if "id" in session:
         return redirect("/home")
     else:
@@ -53,7 +53,7 @@ def signout():
 
 
 @app.route('/signout')
-def signup():
+def signout():
     if "id" in session:
         session.pop("id", None)
     return redirect("/")
@@ -148,3 +148,8 @@ def admin():
     else:
         flash("You aren't an admin")
     return redirect("/home")
+
+
+@app.errorhandler(500)
+def internal_server_error(error):
+    return "An internal server error occured. Broke a user? Go to /signout to sign out and sign in as a different user."
